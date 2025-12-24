@@ -10,7 +10,7 @@
 
 <style>
 body{
-    background: linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.65)), url("resources\asset\nwh1.jpeg");
+    background: linear-gradient(rgba(0,0,0,0.65),rgba(0,0,0,0.65)), url("/asset/nwh1.jpeg");
     background-size: cover;
     height: 100vh;
     display:flex;
@@ -109,7 +109,7 @@ input[type=radio]{
     <!-- RADIO CONTROLLER -->
     <input type="radio" name="auth" id="login" checked>
     <input type="radio" name="auth" id="register">
-    <a href="index.html" class="close-btn">&times;</a>
+    <a href="/" class="close-btn">&times;</a>
 
 
     <!-- LOGIN -->

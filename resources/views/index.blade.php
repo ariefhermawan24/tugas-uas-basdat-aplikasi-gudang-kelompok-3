@@ -21,13 +21,18 @@
 
         .navbar {
             margin-bottom: 0;
+            background-color: #5A7ACD;
+            width: 100%;
+            top: 0;
+            position: fixed;
+            z-index: 99999;
         }
 
         .hero-section {
             margin-top: 0;
             min-height: 100vh;
             height: auto;
-            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('resources\asset\nwh1.jpeg');
+            background: linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url('/asset/nwh1.jpeg');
             background-size: cover;
             background-position: center;
             color: white;
@@ -169,16 +174,16 @@
             margin: 0 auto;
         }
 
-       
+
 
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid px-4">
             <a href="#" class="navbar-brand d-flex align-items-center gap-2 fw-bold">
-                <img src="resources\asset\LOGO NWH.png" alt="NWH Logo" class="navbar-logo">
+                <img src="{{ asset('asset/LOGO NWH.png') }}" alt="NWH Logo" class="navbar-logo">
                 <span>Solution</span>
             </a>
 
@@ -206,10 +211,10 @@
         <div class="container-fluid px-3 text-center">
             <h1 class="fw-bold display-4"> NWH Solution </h1>
             <p class="lead mt-3">
-                Platform sewa gudang multi-tenant berbasis palet dengan transparasi penuh. 
+                Platform sewa gudang multi-tenant berbasis palet dengan transparasi penuh.
                 Simpan barang Anda dalam satuan palet, pantau stok melalui dashboard, dan nikmati pengelolaan penyimpanan yang aman dan terstruktur
             </p>
-            <a class="btn btn-light btn-lg mt-4" href="login.html"> Login </a>
+            <a class="btn btn-light btn-lg mt-4" href="{{ url('/login') }}"> Login </a>
 
         </div>
     </section>
@@ -241,7 +246,7 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h5 class="card-title fw-bold">WhatsApp</h5>
-                        <p class="card-text">   
+                        <p class="card-text">
                             <a href="https://wa.me/6281329388387" target="_blank" class="wa-link">
                                 +62 813-2938-8387 (M. Arief)
                             </a>
