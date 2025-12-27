@@ -3,209 +3,322 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Landing Page </title>
+    <title>NWH Solutions | The best Storage Solution </title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* body {
-            padding-top: 56px;
-        } */
+   * {
+    box-sizing: border-box;
+}
 
-        /* @media (min-width: 992px) {
-            body {
-                padding-top: 70px;
-            }
-        } */
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    padding-top: 64px;
+}
 
-        .navbar {
-            margin-bottom: 0;
-            background-color: #5A7ACD;
-            width: 100%;
-            top: 0;
-            position: fixed;
-            z-index: 99999;
-        }
+.navbar {
+    background-color: #5A7ACD;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 99999;
+    padding: 20px;
+}
 
-        .hero-section {
-            margin-top: 0;
-            min-height: 100vh;
-            height: auto;
-            background: linear-gradient(rgba(0,0,0,0.60), rgba(0,0,0,0.60)), url('/asset/nwh1.jpeg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            display: flex;
-            align-items: center;
-        }
+.navbar-brand span {
+    font-size: 1.1rem;
+}
 
-        .navbar-logo {
-            width: 60px;          /* ukuran logo */
-            height: auto;
-            object-fit: contain;
-        }
+.navbar-logo {
+    width: 60px;
+    height: auto;
+    object-fit: contain;
+}
 
-        @media (max-width: 576px) {
-            .navbar-logo {
-                width: 32px;      /* lebih kecil di mobile */
-            }
-        }
+.navbar-horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-        .card {
-            border: none;
-            border-radius: 15px;
-        }
+.navigasi-menu {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
 
-        .wa-link {
-            color: black;
-            text-decoration: none;
-            transition: o.35;
-        }
+.navbar-menu-horizontal {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+}
 
-        .wa-link:hover{
-            color: aqua;
-            text-decoration: underline;
-        }
+.navbar-auth {
+    display: flex;
+    align-items: center;
+}
 
-        /* Footer */
-        .footer {
-            background-color: var(--bg-dark);
-            padding: 4rem 2rem 2rem;
-            margin-top: 5rem;
-        }
+.navigasi-menu-mobile {
+    display: none;
+}
+.hero-section {
+    min-height: 100vh;
+    padding: 3rem 1rem;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.60),
+        rgba(0, 0, 0, 0.60)
+    ), url('/asset/nwh1.jpeg');
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
+.hero-section h1 {
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+}
 
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-        }
+.hero-section p {
+    font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+    max-width: 720px;
+    margin: 1rem auto 0;
+    line-height: 1.6;
+}
 
-        .footer-description {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            line-height: 1.6;
-        }
+#about h2 {
+    margin-bottom: 1rem;
+}
 
-        .footer-column h3 {
-            font-size: 1.125rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-        }
+#about p {
+    line-height: 1.7;
+    color: #333;
+}
 
-        .footer-links {
-            list-style: none;
-        }
+.card {
+    border: none;
+    border-radius: 15px;
+}
 
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
+#contact .card {
+    min-width: 260px;
+    max-width: 320px;
+}
 
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.875rem;
-        }
+.wa-link {
+    color: #000;
+    text-decoration: none;
+    transition: color 0.35s ease;
+}
 
-        .footer-links a:hover {
-            color: var(--accent);
-        }
+.wa-link:hover {
+    color: #0dcaf0;
+    text-decoration: underline;
+}
 
-        .contact-info {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.5rem;
-        }
+.footer {
+    background-color: #111;
+    padding: 4rem 2rem 2rem;
+    margin-top: 5rem;
+}
 
-        .contact-info i {
-            color: var(--accent);
-            margin-top: 0.2rem;
-        }
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3rem;
+}
 
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 800;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
 
-        .social-icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+.footer-description {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #ccc;
+}
 
-        .social-icon:hover {
-            background-color: var(--accent);
-            color: var(--bg-primary);
-        }
+.footer-column h3 {
+    font-size: 1.125rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+}
 
-        .copyright {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
 
+.footer-links li {
+    margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #0dcaf0;
+}
+
+.contact-info {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    color: #ccc;
+}
+
+.contact-info i {
+    color: #0dcaf0;
+    margin-top: 0.2rem;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.social-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #0dcaf0;
+    color: #000;
+}
+
+.copyright {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #aaa;
+    border-top: 1px solid #333;
+    padding-top: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+    .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #about h2 {
+        text-align: center;
+    }
+
+    #about p {
+        text-align: justify;
+    }
+
+    .navigasi-menu {
+        display: none;
+    }
+
+    /* Menu mobile muncul */
+    .navigasi-menu-mobile {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 1.25rem;
+        padding: 10px 0;
+        background-color: #5A7ACD;
+    }
+
+    .navigasi-menu-mobile a {
+        color: #fff;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .navbar-auth {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 576px) {
+    body {
+        padding-top: 56px;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+}
 
 
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid px-4">
-            <a href="#" class="navbar-brand d-flex align-items-center gap-2 fw-bold">
-                <img src="{{ asset('asset/LOGO NWH.png') }}" alt="NWH Logo" class="navbar-logo">
-                <span>Solution</span>
-            </a>
+<nav class="navbar navbar-dark">
+    <div class="container-fluid px-4 navbar-horizontal">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link"> Home </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link"> About </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link"> Contact </a>
-                    </li>
+        <!-- Brand -->
+        <a href="#" class="navbar-brand d-flex align-items-center gap-2 fw-bold">
+            <img src="{{ asset('asset/LOGO NWH.png') }}" class="navbar-logo">
+            <span>NWH Solution</span>
+        </a>
 
-                </ul>
-            </div>
+        <!-- MENU DESKTOP -->
+        <div class="navigasi-menu">
+            <ul class="navbar-menu-horizontal">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
         </div>
-    </nav>
+
+        <!-- LOGIN -->
+        <div class="navbar-auth">
+            <a href="{{ url('/login') }}" class="btn btn-light btn-login">Login</a>
+        </div>
+
+    </div>
+
+    <!-- MENU MOBILE (TURUN KE BAWAH) -->
+    <div class="navigasi-menu-mobile">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
 
     <section id="home" class="hero-section">
         <div class="container-fluid px-3 text-center">
