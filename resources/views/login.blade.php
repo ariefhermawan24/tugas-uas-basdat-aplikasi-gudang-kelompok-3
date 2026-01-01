@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DriveGO - Auth</title>
+    <title>NWH Solutions | Login</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         body {
@@ -30,7 +31,9 @@
             max-width: 420px;
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, .6);
-            transition: height 0.45s cubic-bezier(.4, 0, .2, 1);
+            transition:
+                height 0.45s cubic-bezier(.4, 0, .2, 1),
+                box-shadow 0.45s cubic-bezier(.4, 0, .2, 1);
         }
 
 
@@ -39,25 +42,39 @@
             display: none;
         }
 
-        /* FORM DEFAULT */
+        /* Base form state */
         .form-login,
         .form-register {
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+
             opacity: 0;
-            transform: translateY(12px) scale(0.98);
+            transform: translateY(16px) scale(0.98);
+
             transition:
-                opacity 0.35s cubic-bezier(.4, 0, .2, 1),
-                transform 0.35s cubic-bezier(.4, 0, .2, 1);
+                opacity 0.45s cubic-bezier(.4, 0, .2, 1),
+                transform 0.45s cubic-bezier(.4, 0, .2, 1);
+
             pointer-events: none;
         }
 
-        #login:checked~.form-login,
-        #register:checked~.form-register {
+        /* Active form */
+        #login:checked ~ .form-login,
+        #register:checked ~ .form-register {
             position: relative;
             opacity: 1;
             transform: translateY(0) scale(1);
             pointer-events: auto;
+        }
+
+        /* Exit animation smoothing */
+        #login:checked ~ .form-register,
+        #register:checked ~ .form-login {
+            opacity: 0;
+            transform: translateY(-12px) scale(0.98);
+            box-shadow: 0 0 0 rgba(0,0,0,0);
         }
 
         #login:checked~.form-login {
@@ -66,6 +83,14 @@
 
         #register:checked~.form-register {
             display: block;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .form-login,
+            .form-register,
+            .card-auth {
+                transition: none;
+            }
         }
 
         .form-control {
@@ -93,6 +118,10 @@
         .btn-login {
             background: #92c7ff97;
             border: none;
+        }
+
+        .btn-login:hover , .btn-register:hover {
+            border: 2px solid white;
         }
 
         .btn-register {
@@ -330,12 +359,50 @@
     </script>
     @endif
 
+   @if (session('login_success'))
+        <script>
+            const userRole = "{{ session('role') }}";
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Berhasil',
+                text: 'Mengalihkan ke dashboard…',
+                toast: true,
+                position: 'top',
+                showConfirmButton: false,
+                timer: 1800,
+                timerProgressBar: true,
+                background: '#1e1e1e',
+                color: '#ffffff',
+                iconColor: '#4ade80',
+
+                didOpen: (toast) => {
+                    // Shadow
+                    toast.style.boxShadow = '0 10px 30px rgba(0,0,0,.6)';
+
+                    // Custom progress bar
+                    const progressBar = toast.querySelector('.swal2-timer-progress-bar');
+                    if (progressBar) {
+                        progressBar.style.background = 'linear-gradient(90deg, #22c55e, #4ade80)';
+                        progressBar.style.height = '3px';
+                        progressBar.style.borderRadius = '0 0 6px 6px';
+                    }
+                }
+            }).then(() => {
+                if (userRole === 'admin') {
+                    window.location.href = "{{ route('admin') }}";
+                } else if (userRole === 'user') {
+                    window.location.href = "{{ route('user.dashboard') }}";
+                } else if (userRole === 'satpam') {
+                    window.location.href = "{{ route('satpam.dashboard') }}";
+                }
+            });
+        </script>
+    @endif
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const errorBox = document.querySelector('.auth-error');
-            const card = document.querySelector('.card-auth');
-            const loginForm = document.querySelector('.form-login');
-            const registerForm = document.querySelector('.form-register');
             const loginRadio = document.getElementById('login');
             const registerRadio = document.getElementById('register');
 
@@ -354,50 +421,14 @@
                 });
             });
 
-            let currentForm = loginRadio.checked ? loginForm : registerForm;
-            currentForm.classList.add('active');
 
-            function switchForm(nextForm) {
-                if (currentForm === nextForm) return;
+        });
 
-                // PHASE 1: fade out current form
-                currentForm.classList.remove('active');
-                currentForm.classList.add('exiting');
-
-                const oldHeight = currentForm.offsetHeight;
-                card.style.height = oldHeight + 'px';
-
-                setTimeout(() => {
-                    // cleanup exiting
-                    currentForm.classList.remove('exiting');
-
-                    // PHASE 2: switch content & animate card height
-                    nextForm.classList.add('active');
-                    const newHeight = nextForm.offsetHeight;
-
-                    card.offsetHeight; // force reflow
-                    card.style.height = newHeight + 'px';
-
-                    // PHASE 3: show next form
-                    setTimeout(() => {
-                        card.style.height = 'auto';
-                        currentForm = nextForm;
-                    }, 400);
-
-                }, 250); // must match fade-out duration
+        window.addEventListener('pageshow', function (event) {
+            // Jika halaman diambil dari bfcache
+            if (event.persisted) {
+                window.location.reload();
             }
-
-            loginRadio.addEventListener('change', () => {
-                if (loginRadio.checked) {
-                    switchForm(loginForm);
-                }
-            });
-
-            registerRadio.addEventListener('change', () => {
-                if (registerRadio.checked) {
-                    switchForm(registerForm);
-                }
-            });
         });
     </script>
 

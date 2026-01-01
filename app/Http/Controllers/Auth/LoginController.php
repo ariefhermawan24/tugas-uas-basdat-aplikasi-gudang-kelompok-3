@@ -17,15 +17,23 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/dashboard'); // sesuaikan
+
+            return redirect()->route('login')
+                ->with('login_success', true)
+                ->with('role', Auth::user()->role);
         }
 
         return back()
-            ->withErrors(
-                ['login_error' => 'Email atau password salah'],
-                'login'
-            )
-        ->withInput();
+            ->withErrors(['login_error' => 'Email atau password salah'], 'login')
+            ->withInput();
+    }
 
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }

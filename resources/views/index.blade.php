@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NWH Solutions | The best Storage Solution</title>
+    <title>NWH Solutions | The best Storage Solution FOr New Business</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -40,7 +40,7 @@
         }
 
         .navbar-logo {
-            width: 56px;
+            width: 68px;
             height: auto;
             object-fit: contain;
         }
@@ -221,21 +221,21 @@
 
         /* ========== ABOUT SECTION ========== */
         .about-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: linear-gradient(170deg, #1C4D8D 50%, #BDE8F5 100%);
             color: #333;
         }
 
         .about-section h2 {
             font-weight: 700;
             margin-bottom: 1.5rem;
-            color: #4F6FD8;
+            color: #fff;
             font-size: clamp(2rem, 4vw, 2.8rem);
         }
 
         .about-section p {
             line-height: 1.8;
-            color: #555;
-            font-size: 1.1rem;
+            color: #fff;
+            font-size: 1.5rem;
             margin-bottom: 1.5rem;
         }
 
@@ -843,7 +843,7 @@
 <section id="faq" class="section-fullscreen faq-section">
     <div class="container">
         <h2 class="fw-bold">Pertanyaan yang Sering Diajukan</h2>
-        
+
         <div class="accordion" id="faqAccordion">
             <div class="accordion-item">
                 <h3 class="accordion-header">
@@ -857,7 +857,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="accordion-item">
                 <h3 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
@@ -870,7 +870,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="accordion-item">
                 <h3 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
@@ -883,7 +883,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="accordion-item">
                 <h3 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
@@ -896,7 +896,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="accordion-item">
                 <h3 class="accordion-header">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
@@ -921,14 +921,14 @@
             <p>
                 Mulai optimalkan manajemen gudang Anda hari ini. Tim ahli kami siap membantu Anda menemukan solusi penyimpanan yang tepat untuk bisnis Anda.
             </p>
-            
-            <a href="https://wa.me/6281329388387" 
-               target="_blank" 
+
+            <a href="https://wa.me/6281329388387"
+               target="_blank"
                class="btn-consultation">
                 <i class="fab fa-whatsapp fa-2x"></i>
                 <span>Konsultasi via WhatsApp</span>
             </a>
-            
+
             <div class="cta-features">
                 <div class="feature-item">
                     <i class="fas fa-check-circle"></i>
@@ -1022,7 +1022,7 @@
 <script>
     const navbar = document.querySelector('.navbar');
 
-    window.addEventListener('scroll', () => {
+    function handleNavbarScroll() {
         if (window.scrollY > 10) {
             navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
             navbar.style.padding = '5px 0';
@@ -1030,22 +1030,30 @@
             navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
             navbar.style.padding = '10px 0';
         }
-        
+    }
+
+    // Run on scroll
+    window.addEventListener('scroll', handleNavbarScroll);
+
+    // Run immediately on page load (INI KUNCINYA)
+    document.addEventListener('DOMContentLoaded', handleNavbarScroll);
+
+    window.addEventListener('scroll', () => {
         // Active navigation highlighting
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link, .navigasi-menu-mobile a');
-        
+
         let currentSection = '';
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop - 100;
             const sectionHeight = section.clientHeight;
-            
+
             if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
                 currentSection = section.getAttribute('id');
             }
         });
-        
+
         navLinks.forEach(link => {
             link.classList.remove('active');
             const href = link.getAttribute('href');
@@ -1061,10 +1069,10 @@
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 window.scrollTo({
-                    top: targetSection.offsetTop - 70,
+                    top: targetSection.offsetTop - 55,
                     behavior: 'smooth'
                 });
             }
