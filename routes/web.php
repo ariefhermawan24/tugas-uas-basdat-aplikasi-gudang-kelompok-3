@@ -9,6 +9,7 @@ use App\Http\Middleware\middleware;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Notification;
 use App\Models\Order;
+use App\Models\User;
 
 Route::get('/', function () {
     return view('index');
@@ -105,7 +106,7 @@ Route::middleware([middleware::class . ':user'])->group(function () {
         ])) {
             $orders = Order::where('user_id', $user->id)
             ->when($module === 'make_order', fn ($q) => $q->whereIn('status', ['checking', 'pending', 'approved', 'rejected']))
-            ->when($module === 'orders_history', fn ($q) => $q->whereIn('status', ['outgoing', 'expired']))
+            ->when($module === 'orders_history', fn ($q) => $q->whereIn('status', ['outgoing', 'expired' , 'canceled' , 'rejected']))
             ->when($module === 'active_orders', fn ($q) => $q->where('status', 'active'))
             ->when($module === 'due_orders', fn ($q) => $q->where('status', 'due'))
             ->when($module === 'expired_orders', fn ($q) => $q->where('status', 'expired'))
@@ -256,7 +257,7 @@ Route::middleware([middleware::class . ':user'])->post(
             'estimated_delivery' => $request->estimated_delivery,
             'storage_end_date'   => $request->storage_end_date,
             'price'              => $request->price ?? 0,
-            'status'             => 'pending',
+            'status'             => 'checking',
         ]);
 
         Notification::create([
@@ -320,3 +321,58 @@ Route::middleware([middleware::class . ':user'])->group(function () {
     })->name('user.orders.update');
 
 });
+
+Route::delete('/user/orders/{order}', function (Order $order) {
+
+    abort_if($order->user_id !== Auth::id(), 403);
+
+    $order->delete();
+
+    Notification::create([
+        'user_id' => Auth::id(),
+        'title'   => 'Pesanan Diperbarui',
+        'message' => 'Pesanan ' . $order->order_code . ' berhasil dihapus',
+    ]);
+
+    $admins = User::where('role', 'admin')->get();
+
+        foreach ($admins as $admin) {
+            Notification::create([
+                'user_id' => $admin->id,
+                'title'   => 'Pesanan Dibatalkan User',
+                'message' => 'Pesanan ' . $order->order_code .
+                            ' dibatalkan oleh user ' . Auth::user()->name,
+            ]);
+        }
+
+    return redirect()
+        ->route('user', 'make_order')
+        ->with('account_success', 'Pesanan berhasil dihapus');
+
+})->name('user.orders.destroy');
+
+Route::middleware([middleware::class . ':user'])->patch(
+    '/user/orders/{order}/cancel',
+    function (Order $order) {
+
+        abort_if($order->user_id !== Auth::id(), 403);
+
+        // hanya boleh cancel saat pending
+        abort_if($order->status !== 'pending', 403);
+
+        $order->update([
+            'status' => 'canceled',
+        ]);
+
+        Notification::create([
+            'user_id' => Auth::id(),
+            'title'   => 'Pesanan Diperbarui',
+            'message' => 'Pesanan ' . $order->order_code . ' berhasil dibatalkan',
+        ]);
+
+        return redirect()
+            ->route('user', 'make_order')
+            ->with('account_success', 'Pesanan berhasil dibatalkan');
+
+    }
+)->name('user.orders.cancel');

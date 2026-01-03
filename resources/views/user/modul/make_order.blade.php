@@ -91,28 +91,62 @@
 
                         <td>
                             <div class="btn-group btn-group-sm gap-1" role="group">
-                                @if (in_array($order->status, ['checking']))
-                                    {{-- EDIT --}}
+                                {{-- CHECKING --}}
+                                @if ($order->status === 'checking')
+
                                     <a href="{{ route('user.orders.edit', $order->id) }}"
                                     class="btn btn-outline-primary d-flex align-items-center gap-1">
                                         <i class="fas fa-edit"></i>
                                         <span class="d-none d-md-inline">Edit</span>
                                     </a>
 
-                                    {{-- BAYAR --}}
                                     <a href="{{ route('user', 'orders_payment') }}"
                                     class="btn btn-outline-success d-flex align-items-center gap-1">
                                         <i class="fas fa-credit-card"></i>
                                         <span class="d-none d-md-inline">Bayar</span>
                                     </a>
 
-                                @else
-                                    {{-- PENGIRIMAN --}}
+                                {{-- PENDING --}}
+                                @elseif ($order->status === 'pending')
+
+                                    <form action="{{ route('user.orders.cancel', $order->id) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Yakin ingin membatalkan pesanan ini?')">
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <button type="submit"
+                                                class="btn btn-outline-warning d-flex align-items-center gap-1">
+                                            <i class="fas fa-ban"></i>
+                                            <span class="d-none d-md-inline">Batal</span>
+                                        </button>
+                                    </form>
+
+                                {{-- APPROVED --}}
+                                @elseif ($order->status === 'approved')
+
                                     <a href="{{ route('user', 'orders_delivery_plan') }}"
                                     class="btn btn-outline-success d-flex align-items-center gap-1">
                                         <i class="fas fa-truck"></i>
                                         <span class="d-none d-md-inline">Pengiriman</span>
                                     </a>
+
+                                {{-- REJECTED --}}
+                                @elseif ($order->status === 'rejected')
+
+                                    <form action="{{ route('user.orders.destroy', $order->id) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus pesanan ini?')">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button type="submit"
+                                                class="btn btn-outline-danger d-flex align-items-center gap-1">
+                                            <i class="fas fa-trash"></i>
+                                            <span class="d-none d-md-inline">Hapus</span>
+                                        </button>
+                                    </form>
+
                                 @endif
 
                             </div>
