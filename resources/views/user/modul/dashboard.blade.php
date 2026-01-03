@@ -1,5 +1,5 @@
 <h1 class="dashboard-title">Dashboard</h1>
-<p class="dashboard-subtitle">Selamat datang kembali, {{ Auth::user()->name }}. Berikut ringkasan aktivitas gudang hari ini.</p>
+<p class="dashboard-subtitle">Selamat datang kembali, Ahmad. Berikut ringkasan aktivitas gudang hari ini.</p>
 
 <!-- Statistik Cards -->
 <div class="row g-4 mb-5">
@@ -43,46 +43,46 @@
     </div>
 </div>
 
-<!-- Request Summary -->
-<div class="row g-4 mb-5">
-
-    <!-- Validate Order Request -->
+<!-- Informasi Tambahan -->
+<div class="row g-4">
     <div class="col-lg-4">
-        <div class="card dashboard-card-highlight success">
+        <div class="card dashboard-card-highlight success h-100">
             <div class="card-body text-center">
                 <div class="stats-icon text-success">
                     <i class="fas fa-clipboard-check"></i>
                 </div>
-                <h6>Validate Order Requests</h6>
-                <h3>14</h3>
+
+                <h6>Menunggu Validasi</h6>
+                <h3>2</h3>
+
                 <p class="text-muted small mt-2">
-                    Menunggu validasi admin
+                    Order baru sedang diproses admin
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- Renew Order Request -->
     <div class="col-lg-4">
-        <div class="card dashboard-card-highlight warning">
+        <div class="card dashboard-card-highlight warning h-100">
             <div class="card-body text-center">
                 <div class="stats-icon text-warning">
                     <i class="fas fa-sync-alt"></i>
                 </div>
-                <h6>Renew Order Requests</h6>
-                <h3>7</h3>
+
+                <h6>Renew Sedang Diajukan</h6>
+                <h3>1</h3>
+
                 <p class="text-muted small mt-2">
-                    Permintaan perpanjangan aktif
+                    Menunggu persetujuan perpanjangan
                 </p>
             </div>
         </div>
     </div>
-    <!-- Order Status -->
+
     <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title mb-4">Order Status</h5>
-
                 <div class="mb-3">
                     <div class="d-flex justify-content-between mb-1">
                         <span>Aktif</span>
@@ -92,7 +92,6 @@
                         <div class="progress-bar bg-primary" style="width: 60%"></div>
                     </div>
                 </div>
-
                 <div class="mb-3">
                     <div class="d-flex justify-content-between mb-1">
                         <span>Due</span>
@@ -102,8 +101,7 @@
                         <div class="progress-bar bg-warning" style="width: 25%"></div>
                     </div>
                 </div>
-
-                <div>
+                <div class="mb-3">
                     <div class="d-flex justify-content-between mb-1">
                         <span>Expired</span>
                         <span>120</span>
@@ -115,5 +113,4 @@
             </div>
         </div>
     </div>
-
 </div>

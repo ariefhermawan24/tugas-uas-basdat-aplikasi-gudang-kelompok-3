@@ -392,7 +392,7 @@
                 if (userRole === 'admin') {
                     window.location.href = "{{ route('admin') }}";
                 } else if (userRole === 'user') {
-                    window.location.href = "{{ route('user.dashboard') }}";
+                    window.location.href = "{{ route('user') }}";
                 } else if (userRole === 'satpam') {
                     window.location.href = "{{ route('satpam.dashboard') }}";
                 }

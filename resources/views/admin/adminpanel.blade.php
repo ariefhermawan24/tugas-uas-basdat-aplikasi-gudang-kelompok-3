@@ -1099,6 +1099,14 @@
             transition: width 0.3s ease;
         }
 
+        .dashboard-card-highlight.warning {
+            --secondary-color: #f59e0b;
+        }
+
+        .dashboard-card-highlight.success {
+            --secondary-color: #15803d;
+        }
+
         .dashboard-card-highlight:hover::before {
             width: 6px;
         }
@@ -1174,7 +1182,7 @@ $user = Auth::user();
             </div>
             <div class="company-info">
                 <h5>NWH Solution</h5>
-                <p>{{ Auth::user()->name }} - {{ Auth::user()->role }}</p>
+                <p>{{ Auth::user()->name }}</p>
             </div>
         </div>
 
@@ -1208,7 +1216,14 @@ $user = Auth::user();
                         <i class="fas fa-check-circle"></i>
                         <span>Order Validation</span>
                     </a>
-                    <a class="nav-link submenu-item {{ ($module ?? '') === 'orders_history' ? 'active' : '' }}" href="{{ route('admin', 'orders_history') }}" data-parent="order-management" style="--index: 2">
+                    <a class="nav-link submenu-item {{ ($module ?? '') === 'renew_request' ? 'active' : '' }}"
+                    href="{{ route('admin', 'renew_request') }}"
+                    data-parent="order-management"
+                    style="--index: 2">
+                        <i class="fas fa-rotate-right"></i>
+                        <span>Renew Request</span>
+                    </a>
+                    <a class="nav-link submenu-item {{ ($module ?? '') === 'orders_history' ? 'active' : '' }}" href="{{ route('admin', 'orders_history') }}" data-parent="order-management" style="--index: 3">
                         <i class="fas fa-history"></i>
                         <span>Order History</span>
                     </a>
@@ -1481,7 +1496,7 @@ $user = Auth::user();
                                     class="form-control"
                                     id="company_name"
                                     name="company_name"
-                                    value="{{ $user->company_name }}">
+                                    value="{{ $user->company_name }}" disabled>
                             </div>
 
                             <div class="col-md-6">
