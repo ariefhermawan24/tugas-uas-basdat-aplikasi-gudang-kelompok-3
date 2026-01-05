@@ -1151,6 +1151,10 @@
             font-size: 13px;
             color: #94a3b8;
         }
+
+        th , td {
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -1267,14 +1271,6 @@ $user = Auth::user();
                         <span>Make Order</span>
                     </a>
 
-                    <a class="nav-link submenu-item {{ ($module ?? '') === 'renew_order' ? 'active' : '' }}"
-                        href="{{ route('user', 'renew_order') }}"
-                        data-parent="order-management"
-                        style="--index:1">
-                        <i class="fas fa-rotate-right"></i>
-                        <span>Renew Order</span>
-                    </a>
-
                     <a class="nav-link submenu-item {{ ($module ?? '') === 'orders_history' ? 'active' : '' }}"
                         href="{{ route('user', 'orders_history') }}"
                         data-parent="order-management"
@@ -1296,36 +1292,12 @@ $user = Auth::user();
                 </a>
 
                 <div class="submenu">
-                    <a class="nav-link submenu-item {{ ($module ?? '') === 'orders_details' ? 'active' : '' }}"
-                        href="{{ route('user', 'orders_details') }}"
+                    <a class="nav-link submenu-item {{ ($module ?? '') === 'orders_monitoring' ? 'active' : '' }}"
+                        href="{{ route('user', 'orders_monitoring') }}"
                         data-parent="order-monitoring"
                         style="--index:0">
                         <i class="far fa-list-alt"></i>
-                        <span>Order Detail</span>
-                    </a>
-
-                    <a class="nav-link submenu-item {{ ($module ?? '') === 'active_orders' ? 'active' : '' }}"
-                        href="{{ route('user', 'active_orders') }}"
-                        data-parent="order-monitoring"
-                        style="--index:1">
-                        <i class="fas fa-play-circle"></i>
-                        <span>Active Order</span>
-                    </a>
-
-                    <a class="nav-link submenu-item {{ ($module ?? '') === 'due_orders' ? 'active' : '' }}"
-                        href="{{ route('user', 'due_orders') }}"
-                        data-parent="order-monitoring"
-                        style="--index:2">
-                        <i class="far fa-clock"></i>
-                        <span>Due Order</span>
-                    </a>
-
-                    <a class="nav-link submenu-item {{ ($module ?? '') === 'expired_orders' ? 'active' : '' }}"
-                        href="{{ route('user', 'expired_orders') }}"
-                        data-parent="order-monitoring"
-                        style="--index:3">
-                        <i class="fas fa-calendar-times"></i>
-                        <span>Expired Order</span>
+                        <span>Order Monitoring</span>
                     </a>
                 </div>
             </div>

@@ -20,7 +20,20 @@ class Order extends Model
         'storage_duration',
         'estimated_delivery',
         'storage_end_date',
+        'bukti_bayar',
+        'status_bayar',
+        'status_keluar',
+        'renew_end_date',
+        'renew_extend_days',
+        'renew_price',
+        'destination',
         'price',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

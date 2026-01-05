@@ -1,1 +1,0 @@
-<h1>ORDER DETAILS</h1>

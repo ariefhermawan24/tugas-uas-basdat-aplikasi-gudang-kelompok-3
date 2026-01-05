@@ -1,13 +1,13 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h4 class="fw-semibold mb-1">Make Order</h4>
+        <h4 class="fw-semibold mb-1">membuat pesanan</h4>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mb-0 small">
                 <li class="breadcrumb-item">
                     <a href="{{ route('user', 'dashboard') }}">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">
-                    Make Order
+                    membuat pesanan
                 </li>
             </ol>
         </nav>
@@ -28,9 +28,9 @@
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
-                        <th>Code Order</th>
-                        <th>Nama Item</th>
-                        <th>Tipe Item</th>
+                        <th>Kode Pesanan</th>
+                        <th>Nama Barang</th>
+                        <th>Tipe Barang</th>
                         <th>Jumlah</th>
                         <th>Pallet</th>
                         <th>Durasi</th>
@@ -94,59 +94,60 @@
                                 {{-- CHECKING --}}
                                 @if ($order->status === 'checking')
 
-                                    <a href="{{ route('user.orders.edit', $order->id) }}"
+                                <a href="{{ route('user.orders.edit', $order->id) }}"
                                     class="btn btn-outline-primary d-flex align-items-center gap-1">
-                                        <i class="fas fa-edit"></i>
-                                        <span class="d-none d-md-inline">Edit</span>
-                                    </a>
+                                    <i class="fas fa-edit"></i>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </a>
 
-                                    <a href="{{ route('user', 'orders_payment') }}"
+                                <a href="{{ route('user.orders.payment', $order->id) }}"
                                     class="btn btn-outline-success d-flex align-items-center gap-1">
-                                        <i class="fas fa-credit-card"></i>
-                                        <span class="d-none d-md-inline">Bayar</span>
-                                    </a>
+                                    <i class="fas fa-credit-card"></i>
+                                    <span class="d-none d-md-inline">Bayar</span>
+                                </a>
 
                                 {{-- PENDING --}}
                                 @elseif ($order->status === 'pending')
 
-                                    <form action="{{ route('user.orders.cancel', $order->id) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('Yakin ingin membatalkan pesanan ini?')">
-                                        @csrf
-                                        @method('PATCH')
+                                <a href="#"
+                                    class="btn btn-outline-warning d-flex align-items-center gap-1 btn-cancel-order"
+                                    data-id="{{ $order->id }}">
+                                    <i class="fas fa-ban"></i>
+                                    <span class="d-none d-md-inline">Batal</span>
+                                </a>
 
-                                        <button type="submit"
-                                                class="btn btn-outline-warning d-flex align-items-center gap-1">
-                                            <i class="fas fa-ban"></i>
-                                            <span class="d-none d-md-inline">Batal</span>
-                                        </button>
-                                    </form>
+                                <form id="cancel-form-{{ $order->id }}"
+                                    action="{{ route('user.orders.cancel', $order->id) }}"
+                                    method="POST"
+                                    class="d-none">
+                                    @csrf
+                                    @method('PATCH')
+                                </form>
 
                                 {{-- APPROVED --}}
                                 @elseif ($order->status === 'approved')
-
-                                    <a href="{{ route('user', 'orders_delivery_plan') }}"
+                                <a href="{{ route('user.orders.delivery', $order->id) }}"
                                     class="btn btn-outline-success d-flex align-items-center gap-1">
-                                        <i class="fas fa-truck"></i>
-                                        <span class="d-none d-md-inline">Pengiriman</span>
-                                    </a>
-
+                                    <i class="fas fa-truck"></i>
+                                    <span class="d-none d-md-inline">Pengiriman</span>
+                                </a>
                                 {{-- REJECTED --}}
                                 @elseif ($order->status === 'rejected')
 
-                                    <form action="{{ route('user.orders.destroy', $order->id) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus pesanan ini?')">
-                                        @csrf
-                                        @method('DELETE')
+                                <a href="#"
+                                    class="btn btn-outline-danger d-flex align-items-center gap-1 btn-delete-order"
+                                    data-id="{{ $order->id }}">
+                                    <i class="fas fa-trash"></i>
+                                    <span class="d-none d-md-inline">Hapus</span>
+                                </a>
 
-                                        <button type="submit"
-                                                class="btn btn-outline-danger d-flex align-items-center gap-1">
-                                            <i class="fas fa-trash"></i>
-                                            <span class="d-none d-md-inline">Hapus</span>
-                                        </button>
-                                    </form>
-
+                                <form id="delete-form-{{ $order->id }}"
+                                    action="{{ route('user.orders.destroy', $order->id) }}"
+                                    method="POST"
+                                    class="d-none">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
                                 @endif
 
                             </div>
@@ -165,3 +166,59 @@
 
     </div>
 </div>
+
+<script>
+    /* ======================
+   BATAL PESANAN
+====================== */
+    document.querySelectorAll('.btn-cancel-order').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const orderId = this.dataset.id;
+
+            Swal.fire({
+                title: 'Batalkan Pesanan?',
+                text: 'Pesanan akan dibatalkan dan tidak bisa diproses lebih lanjut.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Batalkan',
+                cancelButtonText: 'Tidak',
+                confirmButtonColor: '#f59e0b'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document
+                        .getElementById('cancel-form-' + orderId)
+                        .submit();
+                }
+            });
+        });
+    });
+
+    /* ======================
+       HAPUS PESANAN
+    ====================== */
+    document.querySelectorAll('.btn-delete-order').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const orderId = this.dataset.id;
+
+            Swal.fire({
+                title: 'Hapus Pesanan?',
+                text: 'Pesanan akan dihapus permanen dan tidak dapat dikembalikan.',
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#dc2626'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document
+                        .getElementById('delete-form-' + orderId)
+                        .submit();
+                }
+            });
+        });
+    });
+</script>

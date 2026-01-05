@@ -1110,6 +1110,10 @@
         .dashboard-card-highlight:hover::before {
             width: 6px;
         }
+
+        th , td {
+            white-space: nowrap;
+        }
     </style>
 </head>
 
@@ -1268,13 +1272,6 @@ $user = Auth::user();
                 </a>
 
                 <div class="submenu">
-                    <a class="nav-link submenu-item {{ ($module ?? '') === 'active_orders' ? 'active' : '' }}"
-                        href="{{ route('admin', 'active_orders') }}"
-                        data-parent="monitoring"
-                        style="--index:0">
-                        <i class="fas fa-play-circle"></i>
-                        <span>Active Orders</span>
-                    </a>
 
                     <a class="nav-link submenu-item {{ ($module ?? '') === 'due_orders' ? 'active' : '' }}"
                         href="{{ route('admin', 'due_orders') }}"
@@ -1609,7 +1606,6 @@ $user = Auth::user();
         @endif
 
     </div>
-
 
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

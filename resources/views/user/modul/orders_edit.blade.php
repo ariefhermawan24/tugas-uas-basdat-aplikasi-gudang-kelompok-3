@@ -2,7 +2,7 @@
     <a href="{{ url()->previous() }}" class="btn btn-light btn-sm me-3">
         <i class="fas fa-arrow-left"></i>
     </a>
-    <h4 class="fw-semibold mb-0">Buat Pesanan</h4>
+    <h4 class="fw-semibold mb-0">Edit Pesanan</h4>
 </div>
 
 <div class="card border-0 shadow-sm rounded-4">

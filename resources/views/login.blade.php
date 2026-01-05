@@ -400,6 +400,17 @@
         </script>
     @endif
 
+    @if (session('swal'))
+    <script>
+        Swal.fire({
+            icon: "{{ session('swal.icon') }}",
+            title: "{{ session('swal.title') }}",
+            text: "{{ session('swal.text') }}",
+            confirmButtonText: 'OK'
+        });
+    </script>
+    @endif
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const errorBox = document.querySelector('.auth-error');
